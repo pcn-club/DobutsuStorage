@@ -11,6 +11,9 @@ class IndexFile {
       n = await readJSON(this.idxfn) + 1;
     } catch (e) {
     }
+    if (this.idxfn.lastIndexOf("/") >= 1) {
+      await Deno.mkdir(this.idxfn.substring(0, this.idxfn.lastIndexOf("/")), { recursive: true });
+    }
     await writeJSON(this.idxfn, n);
     return n;
   }
